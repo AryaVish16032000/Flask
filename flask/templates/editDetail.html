@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/style.css')}}">
+    <title>register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  </head>
+  <body >
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <h5 class=flashes>
+        {{ messages[0] }}
+      </h5>
+    {% endif %}
+    {% endwith %}
+     <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+              <h1 class=" display-3 mt-100">Edit your Detail<br><br>BOOKmyBUS</h1>
+            </div>
+            <div class="col-md-4">
+                <div class="card mt-100">
+                    <div class="card-body">
+                      <h6>{{message}}</h6>
+                        <form class="form" method="post" action="/editDetail">
+                            <input hidden type="text" value="{{profile.email}}" name="email">  
+                            <label>New Password</label><br>
+                            <input type="password" name="password" class="form-control"><br>
+                            <label>Current Password</label><br>
+                            <input type="password" name="Current_password" class="form-control"><br>
+                            <input type="submit" class="btn btn-primary btn-block btn-lg" value="Make Change"><br><br>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+  </body>
+</html>

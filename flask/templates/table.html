@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content=" width=device-width, initial-scale=1">
+      <title>Home</title>
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/seeBusDetail.css')}}">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    </head>
+    <body>
+      <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">BookmyBus</a>
+          <div class="navbar-nav">
+            <form method="POST" action="/home">
+              <input hidden type="text" value="{{id}}" name="email">  
+              <input type="submit" id='submit' class="nav-link" value="HOME">
+            </form>
+          </div>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link" href="/">LOG OUT</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+        <div class="conatainer">
+            <section class="intro">
+                <div class="gradient-custom-2 h-100">
+                <div class="mask d-flex align-items-center h-100">
+                    <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table align-middle mb-0 bg-white">
+                                <thead class="bg-light">
+                                <tr>
+                                    <th>S.NO</th>
+                                    <th>ROUTE</th>
+                                    <th>FARE</th>
+                                    <th>STATUS</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for bus in buses %}
+                                <tr>
+                                    <td>
+                                    <div class="d-flex align-items-center">
+                                        <img
+                                            src="https://pixabay.com/get/gd3e26a6e9f97697279ab31338c759a093e2f4e049ae05452ec6a956ca4b660a71f2763049a7595a67f454186e3f4f2733e32c20d91aff6aa6da4d67a0096910743449faf893e0ffbfd2e67fa8a70b717_1920.jpg"
+                                            alt=""
+                                            style="width: 45px; height: 45px"
+                                            class="rounded-circle"
+                                            />
+                                        <div class="ms-3">
+                                        <p class="fw-bold mb-1">{{ loop.index }}</p>
+                                        <p class="text-muted mb-0">Bus Id: {{bus.bus_number}}</p>
+                                        <p class="text-muted mb-0">Name: {{bus.bus_name}}</p>
+                                        </div>
+                                    </div>
+                                    </td>
+                                    <td>
+                                    <p class="text-muted mb-0">From: {{bus.start_point}}</p>
+                                    <p class="text-muted mb-0">To: {{bus.end_point}}</p>
+                                    <p class="text-muted mb-0">Date & Time: {{bus.dateTime}}</p>
+                                    <p class="text-muted mb-0">Bus Routes: {{bus.busRoutes}}</p>
+                                    </td>
+                                    <td>
+                                    <p class="text-muted mb-0"> {{bus.fare_of1_seat}} ₹</p>
+                                    </td>
+                                    
+                                    <td>
+                                            <form method="post" action="/bookit">
+                                            <input hidden type="text" name="busN" value="{{bus.bus_number}}" class="form-control">
+                                            <input hidden type="text" name="Id" value="{{id}}" class="form-control">
+                                            <input hidden type="text" name="fare" value="{{bus.fare_of1_seat}}" class="form-control">
+                                            <input hidden type="text" name="start_point" value="{{bus.start_point}}" class="form-control">
+                                            <input hidden type="text" name="end_point" value="{{bus.end_point}}" class="form-control">
+                                            <input type="submit" class="btn btn-primary btn-block btn-lg" value="Book it">
+                                            </form>
+                                    </td>  
+                                </tr>
+                                {% endfor %}
+                               
+                                
+                                </tbody>
+                            </table>
+                            <h6 style="color: #f30a0a">{{message}}</h6> 
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </section>
+        </div>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    </body>
+  </html>
